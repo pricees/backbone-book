@@ -9,10 +9,10 @@
 <div id="todo">
 </div>
 
-<script type="text/template" id="item-template"
+<script type="text/template" id="item-template">
   <div>
     <input id="todo_complete" type="checkbox"
-    <%= completed? "checked" : "" %>>
+    <%= completed ? "checked" : "" %>>
     <%= title %>
   </div>
 </script>
@@ -21,6 +21,7 @@
 <script src="jquery.min.js"></script>
 <script src="backbone-min.js"></script>
 <script>
+
 /*
 
 #TODO: Add items collection
@@ -32,13 +33,20 @@ var ListView = Backbone.View.extend({
     var items = this.model.get('items');
     _.each(items, function(item) {
       var itemView = new ItemView({model: item});
-  //    this.$el.html(this.template(this.model.attributes));
       this.$el.append(itemView.render().el);
     }, this);
   }
 })
 
-myView = new ListView()
+myList = new Backbone.Model({ items: [] })
+
+for(var i = 0; i < 10; i++) {
+  myList.get("items").push(
+    new Backbone.Model({ title: ("Title " + i), completed: (i % 2 == 0)})
+  )
+}
+
+myListView = new ListView({model: myList})
 
 var ItemView = Backbone.View.extend({
   events: {},
@@ -48,6 +56,8 @@ var ItemView = Backbone.View.extend({
     return this;
   }
 })
+
+  myListView.render()
 </script>
 </body>
 </html>
