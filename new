@@ -1,0 +1,5 @@
+mkdir $1
+cp {backbone-min,jquery.min,underscore-min}.js $1
+cp boilerplate.html $1/index.html
+cd $1
+google-chrome index.html &
